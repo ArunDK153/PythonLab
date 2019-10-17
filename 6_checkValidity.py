@@ -3,32 +3,32 @@ class CheckValidity:
         self.sequenceStr = string
     def check_validity(self):
         strlist = list(self.sequenceStr)
-        stack1 = []
-        stack2 = []
-        stack3 = []
+        stack = []
         for char in strlist:
-            if char=='(':
-                stack1.append(char)
+            if char=='(' or char=='{' or char=='[':
+                stack.append(char)
             if char==')':
-                if not stack1:
+                if not stack:
                     return 0
+                elif stack[-1]=='(':
+                    stack.pop()
                 else:
-                    stack1.pop()
-            if char=='{':
-                stack2.append(char)
+                    return 0
             if char=='}':
-                if not stack2:
+                if not stack:
                     return 0
+                elif stack[-1]=='{':
+                    stack.pop()
                 else:
-                    stack2.pop()
-            if char=='[':
-                stack3.append(char)
+                    return 0
             if char==']':
-                if not stack3:
+                if not stack:
                     return 0
+                elif stack[-1]=='[':
+                    stack.pop()
                 else:
-                    stack3.pop()
-        if stack1 or stack2 or stack3:
+                    return 0
+        if stack:
             return 0
         else:
             return 1
